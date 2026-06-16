@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cf171542-ab19-4cd0-856a-397935451b92" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Agent/FeatureBaseProject.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Agent/NhaNT/LogCodeNha.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Agent/NhaNT/nha_agent.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/Agent/Nightbite_System.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/BoxType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/ItemType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/NightBiteBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/OrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/PaymentMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/PaymentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/Shop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopProductDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopReviewDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/features/shop/ShopService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/infrastructure/persistence/AdminRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/infrastructure/persistence/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/infrastructure/persistence/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/infrastructure/persistence/ShopRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/infrastructure/persistence/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/shared/config/DataSeeder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/shared/exception/BadRequestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/shared/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/shared/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nightbite/shared/utils/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/NightbiteBackendApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin$AdminBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/BoxType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/ItemType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox$NightBiteBoxBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order$OrderBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem$OrderItemBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentMethod.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product$ProductBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review$ReviewBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Role.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop$ShopBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User$UserBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopDto$ShopDtoBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopProductDto$ShopProductDtoBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopProductDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopRequest$ShopRequestBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopReviewDto$ShopReviewDtoBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopReviewDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/AdminRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ProductRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ReviewRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ShopRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/config/DataSeeder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/BadRequestException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/ResourceNotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/utils/ApiResponse$ApiResponseBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/utils/ApiResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2026-06-16T09-52-31_389.dumpstream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/2026-06-16T10-04-18_429.dumpstream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.nightbite.NightbiteBackendApplicationTests.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/com.nightbite.NightbiteBackendApplicationTests.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/nightbite/NightbiteBackendApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/MonHoc/EXE_NightBite/nightbite-backend" value="3F3wGQpYz4kjDQpauxy4Xzh00B4" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "NhaNT9324W"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NhaNT9324W/EXE_NightBite.git",
+    "accountId": "062b694c-251e-4e18-80fd-8becbe10f1ca"
+  }
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3F3wGQpYz4kjDQpauxy4Xzh00B4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.NightbiteBackendApplication.executor": "Run",
+    "git-widget-placeholder": "develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/MonHoc/EXE_NightBite/nightbite-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MonHoc\EXE_NightBite\nightbite-backend\src\main\Agent\NhaNT" />
+      <recent name="D:\MonHoc\EXE_NightBite\nightbite-backend\src\main\Agent" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="NightbiteBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="nightbite-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nightbite.NightbiteBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf171542-ab19-4cd0-856a-397935451b92" name="Changes" comment="" />
+      <created>1781316968420</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1781316968420</updated>
+      <workItem from="1781316968424" duration="1571000" />
+      <workItem from="1781322882405" duration="100000" />
+      <workItem from="1781324660488" duration="101000" />
+      <workItem from="1781341306734" duration="327000" />
+      <workItem from="1781577335229" duration="2842000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
