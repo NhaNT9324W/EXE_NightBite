@@ -1,81 +1,65 @@
 package com.nightbite.features.shop;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.nightbite.shared.utils.ApiResponse;
-
-import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
+import com.nightbite.features.shop.dto.ShopRequest;
+import com.nightbite.features.shop.dto.ShopResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Lớp điều hướng điều khiển (Controller) chịu trách nhiệm cấu hình các endpoint REST API cho Shop[cite: 1].
+ * Định vị Base URL chuẩn của phân hệ: /savibite/shops[cite: 1].
+ */
 @RestController
+@RequestMapping("/savibite/shops")
 @RequiredArgsConstructor
-@RequestMapping("/shops")
 public class ShopController {
 
     private final ShopService shopService;
 
+    /**
+     * Endpoint xử lý yêu cầu đăng ký thông tin hoặc cập nhật cấu hình cửa hàng (Task BE-03)[cite: 1].
+     * Quyền hạn thực hiện: Shop đối tác[cite: 1].
+     */
     @PostMapping
-    @Operation(summary = "Create shop", description = "Create a new shop account for NightBite Sprint 1.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Shop created successfully")
-    public ResponseEntity<ApiResponse<ShopDto>> createShop(@Valid @RequestBody ShopRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(buildResponse("Shop created successfully", shopService.createShop(request)));
+    public ResponseEntity<Map<String, Object>> saveShop(@RequestBody ShopRequest shopRequest) {
+        ShopResponse result = shopService.createOrUpdateShop(shopRequest);
+        return ResponseEntity.ok(buildResponse(true, "Lưu thông tin dữ liệu Shop thành công!", result));
     }
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Update shop", description = "Update an existing shop profile by id.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shop updated successfully")
-    public ResponseEntity<ApiResponse<ShopDto>> updateShop(@PathVariable Long id, @Valid @RequestBody ShopRequest request) {
-        return ResponseEntity.ok(buildResponse("Shop updated successfully", shopService.updateShop(id, request)));
-    }
-
-    @GetMapping
-    @Operation(summary = "Get active shops", description = "Get all active shops with optional district filter.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shops retrieved successfully")
-    public ResponseEntity<ApiResponse<List<ShopDto>>> getShops(@RequestParam(required = false) String district) {
-        return ResponseEntity.ok(buildResponse("Shops retrieved successfully", shopService.getActiveShops(district)));
-    }
-
+    /**
+     * Endpoint lấy thông tin hiển thị chi tiết của một Shop cụ thể qua mã ID[cite: 1].
+     * Quyền hạn thực hiện: Public[cite: 1].
+     */
     @GetMapping("/{id}")
-    @Operation(summary = "Get shop detail", description = "Get the active shop detail by id.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shop retrieved successfully")
-    public ResponseEntity<ApiResponse<ShopDto>> getShopById(@PathVariable Long id) {
-        return ResponseEntity.ok(buildResponse("Shop retrieved successfully", shopService.getShopById(id)));
+    public ResponseEntity<Map<String, Object>> getShopById(@PathVariable Long id) {
+        ShopResponse result = shopService.getShopById(id);
+        return ResponseEntity.ok(buildResponse(true, "Lấy thông tin chi tiết Shop thành công!", result));
     }
 
-    @GetMapping("/{id}/products")
-    @Operation(summary = "Get shop products", description = "Get active flash-sale products for a shop.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Products retrieved successfully")
-    public ResponseEntity<ApiResponse<List<ShopProductDto>>> getShopProducts(@PathVariable Long id) {
-        return ResponseEntity.ok(buildResponse("Products retrieved successfully", shopService.getShopProducts(id)));
+    /**
+     * Endpoint lấy danh sách toàn bộ Shop đi kèm tính năng lọc theo địa bàn hành chính (Task BE-04)[cite: 1].
+     * Quyền hạn thực hiện: User / Public[cite: 1].
+     */
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getAllShops(@RequestParam(required = false) String district) {
+        List<ShopResponse> result = shopService.getAllShops(district);
+        return ResponseEntity.ok(buildResponse(true, "Lấy danh sách dữ liệu Shop thành công!", result));
     }
 
-    @GetMapping("/{id}/reviews")
-    @Operation(summary = "Get shop reviews", description = "Get visible reviews for a shop.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Reviews retrieved successfully")
-    public ResponseEntity<ApiResponse<List<ShopReviewDto>>> getShopReviews(@PathVariable Long id) {
-        return ResponseEntity.ok(buildResponse("Reviews retrieved successfully", shopService.getShopReviews(id)));
-    }
-
-    private <T> ApiResponse<T> buildResponse(String message, T data) {
-        return ApiResponse.<T>builder()
-                .success(true)
-                .message(message)
-                .data(data)
-                .timestamp(LocalDateTime.now())
-                .build();
+    /**
+     * Cấu trúc Response Wrapper chuẩn hóa để đồng bộ hóa dữ liệu trả về với phía Frontend ReactJS[cite: 1].
+     */
+    private Map<String, Object> buildResponse(boolean success, String message, Object data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        response.put("message", message);
+        response.put("data", data);
+        response.put("timestamp", System.currentTimeMillis());
+        return response;
     }
 }
-

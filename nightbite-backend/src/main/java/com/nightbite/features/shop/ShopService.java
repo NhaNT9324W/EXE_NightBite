@@ -1,161 +1,106 @@
 package com.nightbite.features.shop;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.nightbite.domain.Shop;
+import com.nightbite.features.shop.dto.ShopRequest;
+import com.nightbite.features.shop.dto.ShopResponse;
+import com.nightbite.infrastructure.persistence.ShopRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import com.nightbite.domain.Product;
-import com.nightbite.domain.Review;
-import com.nightbite.domain.Shop;
-import com.nightbite.infrastructure.persistence.ProductRepository;
-import com.nightbite.infrastructure.persistence.ReviewRepository;
-import com.nightbite.infrastructure.persistence.ShopRepository;
-import com.nightbite.shared.exception.BadRequestException;
-import com.nightbite.shared.exception.ResourceNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import lombok.RequiredArgsConstructor;
-
+/**
+ * Lớp dịch vụ xử lý logic nghiệp vụ liên quan đến phân hệ cửa hàng (Shop).
+ * Hiện thực hóa các nhiệm vụ cốt lõi: BE-03 và BE-04 của Sprint 1[cite: 1].
+ */
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ShopService {
 
     private final ShopRepository shopRepository;
-    private final ProductRepository productRepository;
-    private final ReviewRepository reviewRepository;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public ShopDto createShop(ShopRequest request) {
-        validateUniqueFields(request, null);
-        Shop shop = toEntity(request);
-        return toDto(shopRepository.save(shop));
-    }
-
-    public ShopDto updateShop(Long id, ShopRequest request) {
-        Shop shop = shopRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Shop not found with id: " + id));
-
-        validateUniqueFields(request, id);
-        applyRequest(shop, request);
-        return toDto(shopRepository.save(shop));
-    }
-
-    @Transactional(readOnly = true)
-    public List<ShopDto> getActiveShops(String district) {
-        List<Shop> shops;
-        if (StringUtils.hasText(district)) {
-            shops = shopRepository.findByIsActiveTrueAndDistrictContainingIgnoreCaseOrderByCreatedAtDesc(district.trim());
+    /**
+     * Xử lý luồng nghiệp vụ tạo mới hoặc cập nhật thông tin cửa hàng (Task BE-03)[cite: 1].
+     *
+     * @param request Dữ liệu yêu cầu gửi lên từ Client dạng ShopRequest
+     * @return Dữ liệu cửa hàng sau khi lưu trữ đã được chuẩn hóa thành ShopResponse
+     */
+    @Transactional
+    public ShopResponse createOrUpdateShop(ShopRequest request) {
+        Shop shop;
+        // Nếu có ID truyền lên, thực hiện tìm kiếm để cập nhật dữ liệu
+        if (request.getId() != null) {
+            shop = shopRepository.findById(request.getId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy cửa hàng với ID: " + request.getId()));
         } else {
-            shops = shopRepository.findByIsActiveTrueOrderByCreatedAtDesc();
+            // Ngược lại, khởi tạo đối tượng Shop mới cho hệ thống
+            shop = new Shop();
         }
-        return shops.stream().map(this::toDto).toList();
+
+        shop.setShopName(request.getShopName());
+        shop.setOwnerName(request.getOwnerName());
+        shop.setPhone(request.getPhone());
+        shop.setEmail(request.getEmail());
+
+        // Kiểm tra và gán mật khẩu nếu có thay đổi
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            shop.setPasswordHash(request.getPassword());
+        }
+
+        shop.setAddress(request.getAddress());
+        shop.setDistrict(request.getDistrict());
+        shop.setDescription(request.getDescription());
+        shop.setLogoUrl(request.getLogoUrl());
+        shop.setBannerUrl(request.getBannerUrl());
+
+        Shop savedShop = shopRepository.save(shop);
+        return mapToResponse(savedShop);
     }
 
+    /**
+     * Tìm kiếm và trả về thông tin chi tiết của một cửa hàng đối tác theo mã định danh[cite: 1].
+     *
+     * @param id Khóa chính của thực thể Shop cần tìm
+     * @return Đối tượng ShopResponse chứa thông tin dữ liệu sạch
+     */
     @Transactional(readOnly = true)
-    public ShopDto getShopById(Long id) {
-        Shop shop = shopRepository.findByIdAndIsActiveTrue(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Shop not found with id: " + id));
-        return toDto(shop);
+    public ShopResponse getShopById(Long id) {
+        Shop shop = shopRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy cửa hàng với ID: " + id));
+        return mapToResponse(shop);
     }
 
+    /**
+     * Truy xuất danh sách toàn bộ các cửa hàng đang hoạt động, có hỗ trợ lọc theo khu vực (Task BE-04)[cite: 1].
+     *
+     * @param district Tên quận/huyện cần áp dụng bộ lọc (Có thể null)
+     * @return Danh sách các cửa hàng được ánh xạ sang định dạng ShopResponse
+     */
     @Transactional(readOnly = true)
-    public List<ShopProductDto> getShopProducts(Long shopId) {
-        Shop shop = shopRepository.findByIdAndIsActiveTrue(shopId)
-                .orElseThrow(() -> new ResourceNotFoundException("Shop not found with id: " + shopId));
+    public List<ShopResponse> getAllShops(String district) {
+        List<Shop> shops;
 
-        return productRepository.findByShopIdAndIsActiveTrueOrderByCreatedAtDesc(shop.getId()).stream()
-                .filter(this::isActiveSaleProduct)
-                .map(this::toProductDto)
-                .toList();
-    }
-
-    @Transactional(readOnly = true)
-    public List<ShopReviewDto> getShopReviews(Long shopId) {
-        Shop shop = shopRepository.findByIdAndIsActiveTrue(shopId)
-                .orElseThrow(() -> new ResourceNotFoundException("Shop not found with id: " + shopId));
-
-        return reviewRepository.findByShopIdAndIsVisibleTrueOrderByCreatedAtDesc(shop.getId()).stream()
-                .map(this::toReviewDto)
-                .toList();
-    }
-
-    private Shop toEntity(ShopRequest request) {
-        Shop shop = new Shop();
-        applyRequest(shop, request);
-        return shop;
-    }
-
-    private void applyRequest(Shop shop, ShopRequest request) {
-        shop.setShopName(request.getShopName().trim());
-        shop.setOwnerName(request.getOwnerName().trim());
-        shop.setPhone(request.getPhone().trim());
-        shop.setEmail(normalizeOptionalValue(request.getEmail()));
-        shop.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-        shop.setAddress(request.getAddress().trim());
-        shop.setDistrict(normalizeOptionalValue(request.getDistrict()));
-        shop.setDescription(normalizeOptionalValue(request.getDescription()));
-        shop.setLogoUrl(normalizeOptionalValue(request.getLogoUrl()));
-        shop.setBannerUrl(normalizeOptionalValue(request.getBannerUrl()));
-    }
-
-    private void validateUniqueFields(ShopRequest request, Long shopId) {
-        String phone = normalizeRequiredValue(request.getPhone());
-        String email = normalizeOptionalValue(request.getEmail());
-
-        boolean phoneExists = shopId == null
-                ? shopRepository.existsByPhone(phone)
-                : shopRepository.existsByPhoneAndIdNot(phone, shopId);
-        if (phoneExists) {
-            throw new BadRequestException("Phone already exists: " + phone);
+        // Kiểm tra xem khách hàng có truyền tham số bộ lọc quận huyện hay không[cite: 1]
+        if (district != null && !district.trim().isEmpty()) {
+            shops = shopRepository.findAll().stream()
+                    .filter(s -> s.getIsActive() && district.equalsIgnoreCase(s.getDistrict()))
+                    .collect(Collectors.toList());
+        } else {
+            shops = shopRepository.findAll().stream()
+                    .filter(Shop::getIsActive)
+                    .collect(Collectors.toList());
         }
 
-        if (StringUtils.hasText(email)) {
-            boolean emailExists = shopId == null
-                    ? shopRepository.existsByEmail(email)
-                    : shopRepository.existsByEmailAndIdNot(email, shopId);
-            if (emailExists) {
-                throw new BadRequestException("Email already exists: " + email);
-            }
-        }
+        return shops.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
-    private String normalizeRequiredValue(String value) {
-        if (!StringUtils.hasText(value)) {
-            throw new BadRequestException("Required field is empty");
-        }
-        return value.trim();
-    }
-
-    private String normalizeOptionalValue(String value) {
-        return StringUtils.hasText(value) ? value.trim() : null;
-    }
-
-    private boolean isActiveSaleProduct(Product product) {
-        if (!Boolean.TRUE.equals(product.getIsActive())) {
-            return false;
-        }
-
-        LocalDate saleDate = product.getSaleDate();
-        if (saleDate != null && !saleDate.isEqual(LocalDate.now())) {
-            return false;
-        }
-
-        LocalTime now = LocalTime.now();
-        if (product.getSaleStartTime() != null && now.isBefore(product.getSaleStartTime())) {
-            return false;
-        }
-        return product.getSaleEndTime() == null || !now.isAfter(product.getSaleEndTime());
-    }
-
-    private ShopDto toDto(Shop shop) {
-        return ShopDto.builder()
+    /**
+     * Hàm tiện ích nội bộ phục vụ chuyển đổi (Mapping) từ Entity sang DTO đầu ra an toàn.
+     */
+    private ShopResponse mapToResponse(Shop shop) {
+        return ShopResponse.builder()
                 .id(shop.getId())
                 .shopName(shop.getShopName())
                 .ownerName(shop.getOwnerName())
@@ -166,49 +111,8 @@ public class ShopService {
                 .description(shop.getDescription())
                 .logoUrl(shop.getLogoUrl())
                 .bannerUrl(shop.getBannerUrl())
-                .isActive(shop.getIsActive())
-                .ratingAvg(Optional.ofNullable(shop.getRatingAvg()).orElse(BigDecimal.ZERO))
-                .reviewCount(Optional.ofNullable(shop.getReviewCount()).orElse(0))
-                .createdAt(shop.getCreatedAt())
-                .updatedAt(shop.getUpdatedAt())
-                .build();
-    }
-
-    private ShopProductDto toProductDto(Product product) {
-        Shop shop = product.getShop();
-        return ShopProductDto.builder()
-                .id(product.getId())
-                .shopId(shop != null ? shop.getId() : null)
-                .shopName(shop != null ? shop.getShopName() : null)
-                .name(product.getName())
-                .description(product.getDescription())
-                .imageUrl(product.getImageUrl())
-                .originalPrice(product.getOriginalPrice())
-                .salePrice(product.getSalePrice())
-                .quantityAvailable(product.getQuantityAvailable())
-                .quantitySold(product.getQuantitySold())
-                .saleStartTime(product.getSaleStartTime())
-                .saleEndTime(product.getSaleEndTime())
-                .saleDate(product.getSaleDate())
-                .allergenTags(product.getAllergenTags())
-                .category(product.getCategory())
-                .isActive(product.getIsActive())
-                .build();
-    }
-
-    private ShopReviewDto toReviewDto(Review review) {
-        return ShopReviewDto.builder()
-                .id(review.getId())
-                .orderId(review.getOrder() != null ? review.getOrder().getId() : null)
-                .userId(review.getUser() != null ? review.getUser().getId() : null)
-                .userName(review.getUser() != null ? review.getUser().getFullName() : null)
-                .shopId(review.getShop() != null ? review.getShop().getId() : null)
-                .rating(review.getRating())
-                .comment(review.getComment())
-                .imageUrls(review.getImageUrls())
-                .isVisible(review.getIsVisible())
-                .createdAt(review.getCreatedAt())
+                .ratingAvg(shop.getRatingAvg())
+                .reviewCount(shop.getReviewCount())
                 .build();
     }
 }
-
