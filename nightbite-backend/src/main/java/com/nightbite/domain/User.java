@@ -27,10 +27,10 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1. Đổi sang IDENTITY để khớp với AUTO_INCREMENT của MySQL trong tài liệu
     private Long id;
 
-    @Column(unique = true, length = 100)
+    @Column(unique = true, nullable = false, length = 100) // 2. Bổ sung nullable = false để khớp với UNIQUE, NOT NULL của tài liệu
     private String zaloId;
 
     @Column(nullable = false, length = 150)
@@ -68,4 +68,3 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
-
