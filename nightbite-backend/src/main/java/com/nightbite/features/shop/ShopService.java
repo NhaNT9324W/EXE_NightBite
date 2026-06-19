@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * Lớp dịch vụ xử lý logic nghiệp vụ liên quan đến phân hệ cửa hàng (Shop).
- * Hiện thực hóa các nhiệm vụ cốt lõi: BE-03 và BE-04 của Sprint 1[cite: 1].
+ * Hiện thực hóa các nhiệm vụ cốt lõi: BE-03 và BE-04 của Sprint 1
  */
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class ShopService {
     private final ShopRepository shopRepository;
 
     /**
-     * Xử lý luồng nghiệp vụ tạo mới hoặc cập nhật thông tin cửa hàng (Task BE-03)[cite: 1].
+     * Xử lý luồng nghiệp vụ tạo mới hoặc cập nhật thông tin cửa hàng (Task BE-03)
      *
      * @param request Dữ liệu yêu cầu gửi lên từ Client dạng ShopRequest
      * @return Dữ liệu cửa hàng sau khi lưu trữ đã được chuẩn hóa thành ShopResponse
@@ -60,7 +60,7 @@ public class ShopService {
     }
 
     /**
-     * Tìm kiếm và trả về thông tin chi tiết của một cửa hàng đối tác theo mã định danh[cite: 1].
+     * Tìm kiếm và trả về thông tin chi tiết của một cửa hàng đối tác theo mã định danh
      *
      * @param id Khóa chính của thực thể Shop cần tìm
      * @return Đối tượng ShopResponse chứa thông tin dữ liệu sạch
@@ -73,7 +73,7 @@ public class ShopService {
     }
 
     /**
-     * Truy xuất danh sách toàn bộ các cửa hàng đang hoạt động, có hỗ trợ lọc theo khu vực (Task BE-04)[cite: 1].
+     * Truy xuất danh sách toàn bộ các cửa hàng đang hoạt động, có hỗ trợ lọc theo khu vực (Task BE-04)
      *
      * @param district Tên quận/huyện cần áp dụng bộ lọc (Có thể null)
      * @return Danh sách các cửa hàng được ánh xạ sang định dạng ShopResponse
@@ -82,7 +82,7 @@ public class ShopService {
     public List<ShopResponse> getAllShops(String district) {
         List<Shop> shops;
 
-        // Kiểm tra xem khách hàng có truyền tham số bộ lọc quận huyện hay không[cite: 1]
+        // Kiểm tra xem khách hàng có truyền tham số bộ lọc quận huyện hay không
         if (district != null && !district.trim().isEmpty()) {
             shops = shopRepository.findAll().stream()
                     .filter(s -> s.getIsActive() && district.equalsIgnoreCase(s.getDistrict()))

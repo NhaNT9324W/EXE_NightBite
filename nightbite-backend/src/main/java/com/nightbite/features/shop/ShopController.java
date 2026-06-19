@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Lớp điều hướng điều khiển (Controller) chịu trách nhiệm cấu hình các endpoint REST API cho Shop[cite: 1].
- * Định vị Base URL chuẩn của phân hệ: /savibite/shops[cite: 1].
+ * Lớp điều hướng điều khiển (Controller) chịu trách nhiệm cấu hình các endpoint REST API cho Shop
+ * Định vị Base URL chuẩn của phân hệ: /savibite/shops
  */
 @RestController
 @RequestMapping("/savibite/shops")
@@ -22,8 +22,8 @@ public class ShopController {
     private final ShopService shopService;
 
     /**
-     * Endpoint xử lý yêu cầu đăng ký thông tin hoặc cập nhật cấu hình cửa hàng (Task BE-03)[cite: 1].
-     * Quyền hạn thực hiện: Shop đối tác[cite: 1].
+     * Endpoint xử lý yêu cầu đăng ký thông tin hoặc cập nhật cấu hình cửa hàng (Task BE-03)
+     * Quyền hạn thực hiện: Shop đối tác
      */
     @PostMapping
     public ResponseEntity<Map<String, Object>> saveShop(@RequestBody ShopRequest shopRequest) {
@@ -32,8 +32,8 @@ public class ShopController {
     }
 
     /**
-     * Endpoint lấy thông tin hiển thị chi tiết của một Shop cụ thể qua mã ID[cite: 1].
-     * Quyền hạn thực hiện: Public[cite: 1].
+     * Endpoint lấy thông tin hiển thị chi tiết của một Shop cụ thể qua mã ID
+     * Quyền hạn thực hiện: Public
      */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getShopById(@PathVariable Long id) {
@@ -42,8 +42,8 @@ public class ShopController {
     }
 
     /**
-     * Endpoint lấy danh sách toàn bộ Shop đi kèm tính năng lọc theo địa bàn hành chính (Task BE-04)[cite: 1].
-     * Quyền hạn thực hiện: User / Public[cite: 1].
+     * Endpoint lấy danh sách toàn bộ Shop đi kèm tính năng lọc theo địa bàn hành chính (Task BE-04)
+     * Quyền hạn thực hiện: User / Public
      */
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllShops(@RequestParam(required = false) String district) {
@@ -52,7 +52,7 @@ public class ShopController {
     }
 
     /**
-     * Cấu trúc Response Wrapper chuẩn hóa để đồng bộ hóa dữ liệu trả về với phía Frontend ReactJS[cite: 1].
+     * Cấu trúc Response Wrapper chuẩn hóa để đồng bộ hóa dữ liệu trả về với phía Frontend ReactJS
      */
     private Map<String, Object> buildResponse(boolean success, String message, Object data) {
         Map<String, Object> response = new HashMap<>();
