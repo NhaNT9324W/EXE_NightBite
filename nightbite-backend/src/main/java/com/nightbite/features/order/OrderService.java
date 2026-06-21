@@ -158,6 +158,59 @@ public class OrderService {
     }
 
     /**
+     * BE-15: Đặt NightBite Box
+     * Tạo đơn hàng cho việc đặt NightBite Box
+     */
+    @Transactional
+    public OrderResponse createNightBiteBoxOrder(NightBiteBoxOrderRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại"));
+        Shop shop = shopRepository.findById(request.getShopId())
+                .orElseThrow(() -> new RuntimeException("Shop không tồn tại"));
+        NightBiteBox box = nightBiteBoxRepository.findById(request.getNightBiteBoxId())
+                .orElseThrow(() -> new RuntimeException("NightBiteBox không tồn tại"));
+
+        if (box.getQuantityAvailable() < request.getQuantity()) {
+            throw new RuntimeException("Số lượng không đủ");
+        }
+
+        // Tạo Order
+        Order order = Order.builder()
+                .user(user)
+                .shop(shop)
+                .orderCode(generateOrderCode())
+                .status(OrderStatus.PENDING)
+                .totalAmount(box.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())))
+                .pickupTime(request.getPickupTime())
+                .note(request.getNote())
+                .paymentMethod(PaymentMethod.MOCK)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        Order savedOrder = orderRepository.save(order);
+
+        // Tạo OrderItem
+        OrderItem item = OrderItem.builder()
+                .order(savedOrder)
+                .itemType(ItemType.BOX)
+                .box(box)
+                .itemName(box.getBoxName())
+                .unitPrice(box.getPrice())
+                .quantity(request.getQuantity())
+                .subtotal(box.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())))
+                .build();
+
+        orderItemRepository.save(item);
+
+        // Cập nhật kho
+        box.setQuantityAvailable(box.getQuantityAvailable() - request.getQuantity());
+        nightBiteBoxRepository.save(box);
+
+        List<OrderItem> items = orderItemRepository.findByOrderId(savedOrder.getId());
+        return mapToResponse(savedOrder, items);
+    }
+
+    /**
      * Hàm nội bộ tự động sinh mã đơn hàng hiển thị theo quy ước: NB-YYYYMMDD-XXXXX
      */
     private String generateOrderCode() {
