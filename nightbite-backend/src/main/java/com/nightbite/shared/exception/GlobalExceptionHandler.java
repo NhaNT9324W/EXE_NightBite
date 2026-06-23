@@ -23,7 +23,6 @@ public class GlobalExceptionHandler {
                         .success(false)
                         .message(exception.getMessage())
                         .data(null)
-                        .timestamp(LocalDateTime.now())
                         .build());
     }
 
@@ -34,7 +33,6 @@ public class GlobalExceptionHandler {
                         .success(false)
                         .message(exception.getMessage())
                         .data(null)
-                        .timestamp(LocalDateTime.now())
                         .build());
     }
 
@@ -49,7 +47,6 @@ public class GlobalExceptionHandler {
                 .success(false)
                 .message("Validation failed")
                 .data(errors)
-                .timestamp(LocalDateTime.now())
                 .build());
     }
 
@@ -60,7 +57,6 @@ public class GlobalExceptionHandler {
                         .success(false)
                         .message(exception.getMessage())
                         .data(null)
-                        .timestamp(LocalDateTime.now())
                         .build());
     }
 }

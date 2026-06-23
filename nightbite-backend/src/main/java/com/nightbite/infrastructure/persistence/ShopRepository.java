@@ -21,5 +21,9 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     List<Shop> findByIsActiveTrueAndDistrictContainingIgnoreCaseOrderByCreatedAtDesc(String district);
 
     java.util.Optional<Shop> findByIdAndIsActiveTrue(Long id);
+
+    java.util.Optional<Shop> findByEmail(String email);
+
+    java.util.Optional<Shop> findByPhone(String phone);
 }
 

@@ -3,6 +3,7 @@ package com.nightbite.features.auth;
 import com.nightbite.domain.Admin;
 import com.nightbite.domain.Shop;
 import com.nightbite.domain.User;
+import com.nightbite.domain.Role;
 import com.nightbite.infrastructure.persistence.AdminRepository;
 import com.nightbite.infrastructure.persistence.ShopRepository;
 import com.nightbite.infrastructure.persistence.UserRepository;
@@ -52,7 +53,7 @@ public class AuthService {
                 .passwordHash(passwordEncoder.encode(req.getPassword()))
                 .trustScore(100)
                 .isActive(true)
-                .role(User.UserRole.USER)
+                .role(Role.USER)
                 .build();
 
         user = userRepository.save(user);
@@ -84,7 +85,7 @@ public class AuthService {
                 .district(req.getDistrict())
                 .description(req.getDescription())
                 .isActive(true)
-                .role(Shop.ShopRole.SHOP)
+                .role(Role.SHOP)
                 .build();
 
         shop = shopRepository.save(shop);
