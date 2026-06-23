@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+/* Hide scrollbars globally for a native app-like experience */
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+* {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+/* Ensure body and viewport root do not stretch beyond the screen */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+}
