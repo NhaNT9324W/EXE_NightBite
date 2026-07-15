@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, UserProfile } from '../../types';
 import { PRODUCTS, CATEGORIES } from '../../demoData';
 import { Search, SlidersHorizontal, Sparkles, ChevronRight, MapPin, Flame, Star } from 'lucide-react';
 import { BannerCarousel } from '../organisms/BannerCarousel';
 import { CategoryTab } from '../molecules/CategoryTab';
 import { ProductCard } from '../molecules/ProductCard';
+import { productService } from '../../api/productService';
+import { mapProductResponseToProduct } from '../../api/mappers';
 
 interface HomeViewProps {
   onSelectProduct: (product: Product) => void;
@@ -52,14 +54,30 @@ export default function HomeView({
   onRequestLocation,
   locationStatus
 }: HomeViewProps) {
-  // Filter products based on selected category (if not all)
-  const filteredProducts = activeCategory === 'all'
-    ? [] // If active is 'all' we can show default recommendations or let CategoryView show them
-    : [];
+  const [productList, setProductList] = useState<Product[]>(PRODUCTS);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const response = await productService.getActiveSaleProducts();
+        if (response.success && response.data && response.data.length > 0) {
+          const mappedProducts = response.data.map(mapProductResponseToProduct);
+          setProductList(mappedProducts);
+        }
+      } catch (error) {
+        console.warn('Lấy dữ liệu API thất bại, chuyển sang dữ liệu demo:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadProducts();
+  }, []);
 
   const handleCategorySelect = (catId: string) => {
     setActiveCategory(catId);
   };
+
 
   return (
     <div className="flex-1 overflow-y-auto bg-[#FAF8F5] pb-2 text-[#2C2520]">
@@ -124,17 +142,17 @@ export default function HomeView({
 
         {/* Reusing Product list from main data */}
         <div className="flex gap-3.5 overflow-x-auto px-4 py-1 no-scrollbar scroll-smooth">
-          {PRODUCTS.filter((p: any) => p.hotDeals).map((p: any) => (
+          {productList.filter((p: any) => p.hotDeals).map((p: any) => (
             <div key={p.id} className="w-[145px] shrink-0 font-sans">
-              <ProductCard
-                product={p}
-                onSelect={onSelectProduct}
-              />
-            </div>
+               <ProductCard
+                 product={p}
+                 onSelect={onSelectProduct}
+               />
+             </div>
           ))}
         </div>
       </div>
-
+ 
       {/* 4.5 Vertical Most Purchased Section */}
       <div className="py-2.5">
         <div className="px-4 flex items-center justify-between mb-3">
@@ -150,9 +168,9 @@ export default function HomeView({
             🔥 BÁN CHẠY
           </span>
         </div>
-
+ 
         <div className="px-4 space-y-3">
-          {[...PRODUCTS]
+          {[...productList]
             .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
             .slice(0, 5)
             .map((p) => (

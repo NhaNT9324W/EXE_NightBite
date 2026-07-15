@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserProfile, Order } from '../../types';
-import { Award, Bookmark, BadgeCheck, Phone, Calendar, MessageSquareShare } from 'lucide-react';
+import { Award, Bookmark, BadgeCheck, Phone, Calendar, MessageSquareShare, LogOut } from 'lucide-react';
 import { Badge } from '../atoms/Badge';
+import { useAuth } from '../../context/AuthContext';
+import { orderService } from '../../api/orderService';
+import { mapOrderResponseToOrder } from '../../api/mappers';
 
 interface ProfileViewProps {
   user: UserProfile;
@@ -9,8 +12,31 @@ interface ProfileViewProps {
   onTriggerVoucherCopy: (code: string) => void;
 }
 
-export default function ProfileView({ user, orders, onTriggerVoucherCopy }: ProfileViewProps) {
+export default function ProfileView({ user, orders: propOrders, onTriggerVoucherCopy }: ProfileViewProps) {
+  const { user: authUser, logout } = useAuth();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [orderList, setOrderList] = useState<Order[]>(propOrders);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+
+  useEffect(() => {
+    const fetchOrderHistory = async () => {
+      if (!authUser) return;
+      setLoadingOrders(true);
+      try {
+        const roleParam = authUser.role === 'ROLE_SHOP' ? 'SHOP' : 'USER';
+        const response = await orderService.getOrderHistory(authUser.id, roleParam);
+        if (response.success && response.data) {
+          const mappedOrders = response.data.map(mapOrderResponseToOrder);
+          setOrderList(mappedOrders);
+        }
+      } catch (error) {
+        console.warn('Lỗi khi tải lịch sử đơn hàng từ API:', error);
+      } finally {
+        setLoadingOrders(false);
+      }
+    };
+    fetchOrderHistory();
+  }, [authUser]);
 
   const handleCopyCode = (code: string) => {
     onTriggerVoucherCopy(code);
@@ -44,7 +70,7 @@ export default function ProfileView({ user, orders, onTriggerVoucherCopy }: Prof
   const pointPercent = Math.min(100, (user.points / 3000) * 100);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-[#FAF8F5] pb-2 text-[#2C2520]">
+    <div className="flex-1 overflow-y-auto bg-[#FAF8F5] pb-6 text-[#2C2520]">
       {/* 1. Profile header banner card */}
       <div className="bg-gradient-to-b from-[#FAF1E6] to-[#FAF8F5] p-5 pb-2 text-center flex flex-col items-center">
         <div className="relative">
@@ -59,7 +85,7 @@ export default function ProfileView({ user, orders, onTriggerVoucherCopy }: Prof
           </div>
         </div>
 
-        <h2 className="text-sm font-black font-sans text-stone-800 tracking-tight mt-2.5 leading-tight flex items-center gap-1">
+        <h2 className="text-sm font-black font-sans text-stone-800 tracking-tight mt-2.5 leading-tight flex items-center justify-center gap-1">
           {user.name}
           <BadgeCheck size={14} className="text-[#C57A44] inline" />
         </h2>
@@ -156,18 +182,23 @@ export default function ProfileView({ user, orders, onTriggerVoucherCopy }: Prof
         </div>
 
         <div className="space-y-3.5 max-w-sm mx-auto">
-          {orders.length === 0 ? (
+          {loadingOrders ? (
+            <div className="text-center py-8 bg-white rounded-2xl border border-stone-200">
+              <span className="w-5 h-5 border-2 border-[#C57A44] border-t-transparent rounded-full animate-spin inline-block" />
+              <p className="text-stone-400 text-[10px] mt-2 font-sans">Đang tải lịch sử đơn hàng...</p>
+            </div>
+          ) : orderList.length === 0 ? (
             <div className="text-center py-8 bg-white rounded-2xl border border-dotted border-stone-200">
               <p className="text-stone-400 text-xs text-center font-sans">Bạn chưa có giao dịch bánh ngọt nào.</p>
             </div>
           ) : (
-            orders.map((ord) => (
+            orderList.map((ord) => (
               <div
                 key={ord.id}
                 className="bg-white p-3.5 rounded-2xl border border-stone-200 space-y-3 shadow-inner-xs"
               >
                 <div className="flex justify-between items-center text-xs pb-2 border-b border-stone-100 font-sans">
-                  <span className="font-extrabold tracking-wider">{ord.id}</span>
+                  <span className="font-extrabold tracking-wider">Đơn hàng #{ord.id}</span>
                   {getOrderStatusBadge(ord.status)}
                 </div>
 
@@ -190,7 +221,7 @@ export default function ProfileView({ user, orders, onTriggerVoucherCopy }: Prof
                 </div>
 
                 <div className="flex justify-between pt-2 border-t border-dotted border-stone-200 text-xs items-center font-sans">
-                  <span className="text-[10px] text-stone-400">Thời gian: {ord.createdAt}</span>
+                  <span className="text-[10px] text-stone-400">Thời gian: {ord.createdAt ? new Date(ord.createdAt).toLocaleString('vi-VN') : 'Đang xử lý'}</span>
                   <div className="flex flex-col items-end font-sans">
                     <span className="text-[10px] text-stone-400 uppercase font-bold">Tổng thanh toán:</span>
                     <span className="font-bold text-[#C57A44]">
@@ -234,6 +265,18 @@ export default function ProfileView({ user, orders, onTriggerVoucherCopy }: Prof
           </div>
         </div>
       </div>
+
+      {/* 6. Logout action button */}
+      <div className="px-5 pt-4 max-w-sm mx-auto">
+        <button
+          onClick={logout}
+          className="w-full py-2.5 bg-red-50 hover:bg-red-100 text-red-650 hover:text-red-700 border border-red-200/50 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xs"
+        >
+          <LogOut size={14} />
+          Đăng xuất tài khoản
+        </button>
+      </div>
     </div>
   );
 }
+
