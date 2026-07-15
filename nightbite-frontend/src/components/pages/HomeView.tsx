@@ -8,6 +8,7 @@ import { ProductCard } from '../molecules/ProductCard';
 import { RestaurantCard } from '../molecules/RestaurantCard';
 import { productService } from '../../api/productService';
 import { mapProductResponseToProduct } from '../../api/mappers';
+import Banner2 from '../../src/assets/Banner2.png';
 
 interface HomeViewProps {
   onSelectProduct: (product: Product) => void;
@@ -35,7 +36,7 @@ const BANNERS = [
     subtitle: 'Không lo giá ship',
     desc: 'Tặng ngay mã Freeship 15k cho quán dưới 3km',
     bg: 'from-[#829E65] to-[#5D7048]',
-    img: 'https://images.unsplash.com/photo-1515003844-10981543aa01?auto=format&fit=crop&q=80&w=200',
+    img: 'https://tse1.mm.bing.net/th/id/OIP.MCuXPTLMp_12UrPz711ZhgHaFF?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
   },
   {
     id: 'b3',

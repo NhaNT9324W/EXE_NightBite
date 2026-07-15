@@ -5,9 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf171542-ab19-4cd0-856a-397935451b92" name="Changes" comment="- Thêm 9 JPA entity: User, Shop, Admin, Product, NightBiteBox, Order, OrderItem, Review, Payment (nếu có)&#10;- Cấu hình Spring Boot, JPA, context-path /savibite&#10;- Seed data: 5 shops, 12 products, 5 users, 1 admin&#10;- API Shop: GET /shops, GET /shops/{id}, GET /shops?district=..., GET /shops/{id}/products, GET /shops/{id}/reviews&#10;- POST /shops và PUT /shops/{id} (chưa có auth)&#10;- Global exception handler + ApiResponse wrapper&#10;- Cấu hình Swagger&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7ae6d6b5-e63d-4d73-8940-f5d2ddb26f37.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Agent/NhaNT/LogCodeNha.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Agent/NhaNT/LogCodeNha.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/NightbiteBackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/NightbiteBackendApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin$AdminBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin$AdminBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/BoxType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/BoxType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/ItemType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/ItemType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox$NightBiteBoxBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox$NightBiteBoxBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/NightBiteBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order$OrderBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem$OrderItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem$OrderItemBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentMethod.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/PaymentStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product$ProductBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product$ProductBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review$ReviewBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review$ReviewBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop$ShopBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop$ShopBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/Shop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/features/shop/ShopService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/AdminRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/AdminRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ProductRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ReviewRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ReviewRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ShopRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/ShopRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/infrastructure/persistence/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/shared/config/DataSeeder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/config/DataSeeder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/BadRequestException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/BadRequestException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/ResourceNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/exception/ResourceNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nightbite/shared/utils/ApiResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nightbite/shared/utils/ApiResponse.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +103,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.NightbiteBackendApplication.executor": "Run",
-    "git-widget-placeholder": "NhaNT",
+    "git-widget-placeholder": "Thang",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/MonHoc/EXE_NightBite/nightbite-backend",
@@ -96,8 +135,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
-        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
@@ -116,6 +154,7 @@
       <workItem from="1781580234074" duration="1068000" />
       <workItem from="1781604055832" duration="257000" />
       <workItem from="1781758703050" duration="501000" />
+      <workItem from="1784124893269" duration="1399000" />
     </task>
     <task id="LOCAL-00001" summary="- Thêm 9 JPA entity: User, Shop, Admin, Product, NightBiteBox, Order, OrderItem, Review, Payment (nếu có)&#10;- Cấu hình Spring Boot, JPA, context-path /savibite&#10;- Seed data: 5 shops, 12 products, 5 users, 1 admin&#10;- API Shop: GET /shops, GET /shops/{id}, GET /shops?district=..., GET /shops/{id}/products, GET /shops/{id}/reviews&#10;- POST /shops và PUT /shops/{id} (chưa có auth)&#10;- Global exception handler + ApiResponse wrapper&#10;- Cấu hình Swagger&quot;">
       <option name="closed" value="true" />

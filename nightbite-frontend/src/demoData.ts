@@ -215,7 +215,7 @@ export const PRODUCTS: Product[] = [
     originalPrice: 70000,
     description: 'Bánh mousse mềm tan với hương vị matcha Nhật Bản đậm đà không quá ngọt.',
     category: 'cake',
-    image: 'https://images.unsplash.com/photo-1481391319762-47dcf7295cb1?auto=format&fit=crop&q=80&w=400',
+    image: 'https://th.bing.com/th/id/OIP.emDZ_2Y2ag8HcU39xLAqLgHaJ3?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3',
     rating: 4.6,
     salesCount: 890,
     sizes: ['S (Slice)'],
