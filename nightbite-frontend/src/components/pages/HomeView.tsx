@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Product, UserProfile, Restaurant } from '@/src/types';
+import { Product, UserProfile, Restaurant } from '../../types';
 import { PRODUCTS, CATEGORIES, RESTAURANTS } from '../../demoData';
 import { Search, SlidersHorizontal, Sparkles, ChevronRight, MapPin, Store, Star, Clock, Flame } from 'lucide-react';
 import { BannerCarousel } from '../organisms/BannerCarousel';
