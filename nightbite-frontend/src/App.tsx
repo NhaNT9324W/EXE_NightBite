@@ -10,6 +10,8 @@ import ProfileView from './components/pages/ProfileView';
 import SearchView from './components/pages/SearchView';
 import { RestaurantDetailView } from './components/pages/RestaurantDetailView';
 import { ProductDetailModal } from './components/organisms/ProductDetailModal';
+import LoginView from './components/pages/LoginView';
+import { useAuth } from './context/AuthContext';
 import {
   Wifi, Signal, Battery, Ellipsis, X, Home, Grid, ShoppingBag, Bell, User,
   Cake, Info, RefreshCw, Star, Sparkles, CheckCircle2, ChevronRight, Share2,
@@ -18,6 +20,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
+  const { user: authUser } = useAuth();
   const [activeTab, setActiveTab] = useState<'home' | 'categories' | 'cart' | 'mystery' | 'profile' | 'checkout'>('home');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -25,7 +28,21 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [user, setUser] = useState<UserProfile>(INITIAL_USER);
+
+  // Mapped user from backend if authenticated
+  const currentUser: UserProfile = authUser ? {
+    name: authUser.fullName || authUser.shopName || 'Thành viên SaviBite',
+    phone: authUser.phone || 'Chưa cung cấp',
+    avatar: authUser.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200',
+    tier: authUser.trustScore !== undefined 
+      ? (authUser.trustScore >= 95 ? 'Diamond' : authUser.trustScore >= 80 ? 'Gold' : 'Silver')
+      : 'Bronze',
+    points: authUser.trustScore !== undefined ? authUser.trustScore * 10 : 100,
+    savedVouchers: ['SAVIBITE15', 'FREESHIP', 'MUA1TANG1']
+  } : user;
+
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
 
   // Theme skin preset state
   const [themeColor, setThemeColor] = useState<'honey' | 'strawberry' | 'chocolate'>('honey');
@@ -195,7 +212,7 @@ export default function App() {
             <h1 className="text-xs font-black font-sans tracking-tight text-stone-800 flex items-center gap-0.5">
               SaviBite
             </h1>
-            <span className="text-[8.5px] font-medium text-stone-400 block -mt-0.5 leading-none">Welcome, {user.name}</span>
+            <span className="text-[8.5px] font-medium text-stone-400 block -mt-0.5 leading-none">Welcome, {currentUser.name}</span>
           </div>
         </div>
 
@@ -235,7 +252,7 @@ export default function App() {
                 setSelectedCategory(cat);
                 setActiveTab('categories');
               }}
-              user={user}
+              user={currentUser}
               onRequestLocation={() => setShowLocationDialog(true)}
               locationStatus={locationStatus}
             />
@@ -262,7 +279,7 @@ export default function App() {
               onRemoveItem={handleRemoveItem}
               onPlaceOrder={handlePlaceOrder}
               onClearCart={() => setCart([])}
-              user={user}
+              user={currentUser}
               locationStatus={locationStatus}
               onGoToOrders={() => setActiveTab('cart')}
               onBack={() => setActiveTab('home')}
@@ -272,16 +289,20 @@ export default function App() {
           {activeTab === 'mystery' && (
             <MysteryBoxView
               onAddToCart={handleAddToCart}
-              user={user}
+              user={currentUser}
             />
           )}
 
           {activeTab === 'profile' && (
-            <ProfileView
-              user={user}
-              orders={orders}
-              onTriggerVoucherCopy={handleCopyVoucher}
-            />
+            authUser ? (
+              <ProfileView
+                user={currentUser}
+                orders={orders}
+                onTriggerVoucherCopy={handleCopyVoucher}
+              />
+            ) : (
+              <LoginView />
+            )
           )}
         </AnimatePresence>
 

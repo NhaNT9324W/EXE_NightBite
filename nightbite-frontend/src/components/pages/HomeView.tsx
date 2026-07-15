@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, UserProfile, Restaurant } from '@/src/types';
 import { PRODUCTS, CATEGORIES, RESTAURANTS } from '../../demoData';
-import { Search, SlidersHorizontal, Sparkles, ChevronRight, MapPin, Store, Star, Clock } from 'lucide-react';
+import { Search, SlidersHorizontal, Sparkles, ChevronRight, MapPin, Store, Star, Clock, Flame } from 'lucide-react';
 import { BannerCarousel } from '../organisms/BannerCarousel';
 import { CategoryTab } from '../molecules/CategoryTab';
 import { ProductCard } from '../molecules/ProductCard';
 import { RestaurantCard } from '../molecules/RestaurantCard';
+import { productService } from '../../api/productService';
+import { mapProductResponseToProduct } from '../../api/mappers';
 
 interface HomeViewProps {
   onSelectProduct: (product: Product) => void;
@@ -55,10 +57,30 @@ export default function HomeView({
   onRequestLocation,
   locationStatus
 }: HomeViewProps) {
+  const [productList, setProductList] = useState<Product[]>(PRODUCTS);
+  const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const response = await productService.getActiveSaleProducts();
+        if (response.success && response.data && response.data.length > 0) {
+          const mappedProducts = response.data.map(mapProductResponseToProduct);
+          setProductList(mappedProducts);
+        }
+      } catch (error) {
+        console.warn('Lấy dữ liệu sản phẩm từ API thất bại, chuyển sang dữ liệu demo:', error);
+      } finally {
+        setIsLoadingProducts(false);
+      }
+    };
+    loadProducts();
+  }, []);
 
   const handleCategorySelect = (catId: string) => {
     setActiveCategory(catId);
   };
+
 
   return (
     <div className="flex-1 overflow-y-auto bg-[#FAF8F5] pb-2 text-[#2C2520]">
@@ -131,6 +153,108 @@ export default function HomeView({
           ))}
         </div>
       </div>
+
+      {/* 4.1 Gợi ý Flash Sale cho bạn hôm nay */}
+      <div className="py-2.5">
+        <div className="px-4 flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1.5">
+            <span className="p-1 rounded-lg bg-[#F7ECE1] text-[#C57A44]">
+              <Sparkles size={14} className="fill-current animate-pulse" />
+            </span>
+            <h3 className="text-sm font-extrabold uppercase tracking-tight font-sans text-stone-800">
+              Gợi ý cho bạn hôm nay
+            </h3>
+          </div>
+        </div>
+
+        <div className="flex gap-3.5 overflow-x-auto px-4 py-1 no-scrollbar scroll-smooth">
+          {productList.filter((p: any) => p.hotDeals).map((p: any) => (
+            <div key={p.id} className="w-[145px] shrink-0 font-sans">
+              <ProductCard
+                product={p}
+                onSelect={onSelectProduct}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 4.2 Bánh được mua nhiều nhất */}
+      <div className="py-2.5">
+        <div className="px-4 flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1.5">
+            <span className="p-1 rounded-lg bg-[#FDF1EB] text-rose-500">
+              <Flame size={14} className="fill-current animate-pulse text-rose-550" />
+            </span>
+            <h3 className="text-sm font-extrabold uppercase tracking-tight font-sans text-stone-800">
+              Bánh được mua nhiều nhất
+            </h3>
+          </div>
+          <span className="text-[9px] font-black text-rose-600 bg-rose-50 border border-rose-100/60 px-2 py-0.5 rounded-full uppercase tracking-wider font-sans">
+            🔥 BÁN CHẠY
+          </span>
+        </div>
+
+        <div className="px-4 space-y-3">
+          {[...productList]
+            .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
+            .slice(0, 5)
+            .map((p) => (
+              <div
+                key={p.id}
+                onClick={() => onSelectProduct(p)}
+                className="bg-white rounded-2xl border border-stone-200/60 p-2.5 flex gap-3 items-center shadow-xs hover:border-[#C57A44]/40 hover:shadow-xs transition-all duration-300 cursor-pointer group"
+              >
+                {/* Product Image */}
+                <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-stone-100 shrink-0">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  {p.salesCount && (
+                    <div className="absolute bottom-1 left-1 bg-rose-600/90 backdrop-blur-xs text-[8px] font-black text-white px-1.5 py-0.5 rounded-md pointer-events-none z-10 font-sans shadow-xs">
+                      #{p.salesCount}+ ĐÃ BÁN
+                    </div>
+                  )}
+                </div>
+
+                {/* Product Text & Details */}
+                <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
+                  <div>
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className="text-xs font-black text-stone-850 line-clamp-1 tracking-tight group-hover:text-[#C57A44] transition-colors leading-tight">
+                        {p.name}
+                      </h4>
+                      {/* Rating info */}
+                      <div className="flex items-center gap-0.5 text-amber-500 shrink-0 text-[10px] font-black bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-100/20">
+                        <Star size={9} className="fill-current" />
+                        <span>{p.rating}</span>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-stone-400 font-serif italic line-clamp-1 mt-0.5 mb-1.5 leading-normal">
+                      {p.description}
+                    </p>
+                  </div>
+
+                  {/* Pricing row */}
+                  <div className="flex items-baseline gap-1.5 mt-auto">
+                    <span className="text-xs font-black text-[#C57A44]">
+                      {p.price.toLocaleString('vi-VN')}đ
+                    </span>
+                    {p.originalPrice && (
+                      <span className="text-[10px] text-stone-400 line-through">
+                        {p.originalPrice.toLocaleString('vi-VN')}đ
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
 
       {/* 5. Gợi ý tiệm bánh */}
       <div className="py-2.5 mt-2">

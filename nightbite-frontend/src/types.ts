@@ -41,7 +41,7 @@ export interface Order {
   totalAmount: number;
   discount: number;
   finalAmount: number;
-  status: 'pending' | 'completed';
+  status: 'pending' | 'shipping' | 'completed';
   createdAt: string;
   restaurantId?: string; // track which restaurant
 }
