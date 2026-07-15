@@ -1,1 +1,8 @@
+com\nightbite\features\auth\AuthServiceTest$Login.class
+com\nightbite\features\auth\TrustScoreServiceTest.class
 com\nightbite\NightbiteBackendApplicationTests.class
+com\nightbite\features\auth\AuthServiceTest$RefreshTokenTests.class
+com\nightbite\features\auth\AuthServiceTest$RegisterShop.class
+com\nightbite\features\auth\AuthServiceTest.class
+com\nightbite\shared\jwt\JwtUtilTest.class
+com\nightbite\features\auth\AuthServiceTest$RegisterUser.class
