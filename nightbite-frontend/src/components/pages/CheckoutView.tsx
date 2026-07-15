@@ -85,8 +85,8 @@ export default function CheckoutView({
     setPromoSuccessMsg(`Áp dụng thành công: ${voucher.description}`);
   };
 
-  const submitCheckout = (e: React.FormEvent) => {
-    e.preventDefault();
+  const submitCheckout = (e?: React.SyntheticEvent) => {
+    if (e) e.preventDefault();
     if (cart.length === 0) return;
 
     const newOrder: Order = {
@@ -270,25 +270,25 @@ export default function CheckoutView({
           <div className="bg-white rounded-2xl p-3.5 border border-stone-200/50 space-y-3 font-sans">
             {/* Simulated Checkout Form */}
             <form onSubmit={submitCheckout} className="space-y-3 pt-2">
-              <div className="flex gap-2">
-                <div className="flex-1 space-y-1">
-                  <label className="text-[10px] font-bold text-stone-400 uppercase">Người nhận</label>
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-stone-400 uppercase">Người lấy</label>
                   <input
                     type="text"
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-3 py-1.8 bg-stone-50 rounded-lg text-xs border border-stone-200 focus:outline-[#C57A44] font-medium"
+                    className="w-full px-3 py-2 bg-stone-50 rounded-lg text-xs border border-stone-200 focus:outline-[#C57A44] font-medium"
                   />
                 </div>
-                <div className="flex-1 space-y-1">
+                <div className="space-y-1">
                   <label className="text-[10px] font-bold text-stone-400 uppercase">Điện thoại</label>
                   <input
                     type="text"
                     required
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full px-3 py-1.8 bg-stone-50 rounded-lg text-xs border border-stone-200 focus:outline-[#C57A44] font-medium"
+                    className="w-full px-3 py-2 bg-stone-50 rounded-lg text-xs border border-stone-200 focus:outline-[#C57A44] font-medium"
                   />
                 </div>
               </div>

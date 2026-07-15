@@ -60,6 +60,13 @@ export default function App() {
   // Dynamic ticking time simulation
   const [currentTime, setCurrentTime] = useState('08:38');
 
+  const handleTabChange = (tab: typeof activeTab) => {
+    setActiveTab(tab);
+    setSelectedRestaurant(null);
+    setSelectedProduct(null);
+    setIsSearchOpen(false);
+  };
+
   useEffect(() => {
     // Clock ticker
     const clockTimer = setInterval(() => {
@@ -491,7 +498,7 @@ export default function App() {
       <div className="h-16 bg-white border-t border-[#E8E2D9] grid grid-cols-4 items-center select-none py-1.5 px-1 font-sans shrink-0">
         {/* Trang chủ tab */}
         <button
-          onClick={() => setActiveTab('home')}
+          onClick={() => handleTabChange('home')}
           className={`flex flex-col items-center gap-1 transition-all ${
             activeTab === 'home' ? getThemeTextClass() : 'text-stone-400 hover:text-stone-600'
           }`}
@@ -502,7 +509,7 @@ export default function App() {
 
         {/* Mystery Box tab */}
         <button
-          onClick={() => setActiveTab('mystery')}
+          onClick={() => handleTabChange('mystery')}
           className={`flex flex-col items-center gap-1 transition-all relative ${
             activeTab === 'mystery' ? getThemeTextClass() : 'text-stone-400 hover:text-stone-600'
           }`}
@@ -516,7 +523,7 @@ export default function App() {
 
         {/* Đơn hàng tab */}
         <button
-          onClick={() => setActiveTab('cart')}
+          onClick={() => handleTabChange('cart')}
           className={`flex flex-col items-center gap-1 transition-all relative ${
             activeTab === 'cart' ? getThemeTextClass() : 'text-stone-400 hover:text-stone-600'
           }`}
@@ -529,7 +536,7 @@ export default function App() {
 
         {/* Cá nhân tab */}
         <button
-          onClick={() => setActiveTab('profile')}
+          onClick={() => handleTabChange('profile')}
           className={`flex flex-col items-center gap-1 transition-all ${
             activeTab === 'profile' ? getThemeTextClass() : 'text-stone-400 hover:text-stone-600'
           }`}

@@ -252,13 +252,13 @@ export default function ProfileView({ user, orders: propOrders, onTriggerVoucher
             </div>
             <div className="flex justify-between">
               <span>Văn phòng:</span>
-              <span className="font-semibold text-stone-900 max-w-[60%] text-right text-[10.5px]">
+              <span className="font-semibold text-stone-900 max-w-[65%] text-right">
                 132 Nguyễn Huệ, P. Bến Nghé, Quận 1, Tp. Hồ Chí Minh
               </span>
             </div>
             <div className="flex justify-between">
               <span>Hỗ trợ Kỹ thuật:</span>
-              <span className="font-semibold text-stone-600 text-xs">
+              <span className="font-semibold text-stone-900">
                 Zalo OA SaviBite Bakery
               </span>
             </div>

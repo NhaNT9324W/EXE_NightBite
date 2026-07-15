@@ -108,7 +108,6 @@ export default function HomeView({
           <h3 className="text-xs font-black uppercase text-stone-400 tracking-widest font-sans">
             Khám phá danh mục
           </h3>
-          <span className="text-[10px] text-stone-400 font-sans">SaviBite Cake</span>
         </div>
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {CATEGORIES.map((cat) => (

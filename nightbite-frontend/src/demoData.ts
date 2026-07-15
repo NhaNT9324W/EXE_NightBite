@@ -11,7 +11,7 @@ export const CATEGORIES = [
 export const RESTAURANTS: Restaurant[] = [
   {
     id: 'res_01',
-    name: 'SaviBite Bakery',
+    name: 'Bánh Mì 24h',
     image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=400',
     rating: 4.9,
     distance: 1.2,
@@ -29,7 +29,7 @@ export const RESTAURANTS: Restaurant[] = [
   },
   {
     id: 'res_03',
-    name: 'Katinat Saigon Kafe',
+    name: 'Katinat',
     image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400',
     rating: 4.9,
     distance: 0.8,
@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'sb_01',
     restaurantId: 'res_01',
-    name: 'Bánh Kem Dâu Tây Savi',
+    name: 'Bánh Kem Dâu Tây',
     price: 65000,
     originalPrice: 75000,
     description: 'Bánh gato cốt dâu tây mềm ẩm ngọt mát kết hợp lớp kem sữa tươi Hokkaido.',

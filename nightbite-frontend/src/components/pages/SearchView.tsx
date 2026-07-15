@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Search, X, Star, Sparkles, TrendingUp, ArrowLeft } from 'lucide-react';
 import { Product } from '../../types';
 import { PRODUCTS } from '../../demoData';
-import { Search, X, Star, Sparkles, TrendingUp, ArrowLeft } from 'lucide-react';
 
 interface SearchViewProps {
   onBack: () => void;
