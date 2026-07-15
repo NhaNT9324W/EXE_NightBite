@@ -16,7 +16,7 @@ const MYSTERY_BOXES = [
     timeStart: 19,
     timeEnd: 20,
     bgBadge: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1608681283625-f481a5fcbf83?auto=format&fit=crop&q=80&w=800',
     rating: 4.8,
     salesCount: 150,
     options: {
@@ -35,7 +35,7 @@ const MYSTERY_BOXES = [
     timeStart: 20,
     timeEnd: 21,
     bgBadge: 'bg-amber-100 text-amber-700 border-amber-200',
-    image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=800',
     rating: 4.9,
     salesCount: 200,
     options: {
@@ -54,7 +54,7 @@ const MYSTERY_BOXES = [
     timeStart: 21,
     timeEnd: 22,
     bgBadge: 'bg-rose-100 text-rose-700 border-rose-200',
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&q=80&w=800',
     rating: 4.7,
     salesCount: 300,
     options: {

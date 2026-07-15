@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Product, Restaurant, CartItem } from '../../types';
 import { PRODUCTS } from '../../demoData';
-import { ChevronLeft, Star, MapPin, Clock, Search, Heart, Share, Users, Info, ChevronRight, Plus, Minus, Store, Sparkles, CheckCircle, ShoppingBag } from 'lucide-react';
+import { ChevronLeft, Star, MapPin, Clock, Search, Heart, Share, Info, ChevronRight, Plus, Minus, Store, Sparkles, CheckCircle, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface RestaurantDetailViewProps {
@@ -94,9 +94,6 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
             </div>
           ) : (
             <div className="flex-1 flex justify-end gap-2">
-              <button className="h-8 px-3 rounded-full bg-black/40 flex items-center justify-center text-white backdrop-blur-sm text-[11px] font-bold gap-1">
-                <Users size={14} /> Đơn nhóm
-              </button>
               <button className="w-8 h-8 rounded-full bg-black/40 flex items-center justify-center text-white backdrop-blur-sm">
                 <Search size={16} />
               </button>
@@ -106,9 +103,6 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
           <div className="flex gap-2">
              <button className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isScrolled ? 'text-rose-600' : 'bg-black/40 text-white backdrop-blur-sm'}`}>
                 <Heart size={20} className={isScrolled ? 'fill-current' : ''} />
-             </button>
-             <button className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isScrolled ? 'text-rose-600' : 'bg-black/40 text-white backdrop-blur-sm'}`}>
-                <Share size={20} />
              </button>
           </div>
         </div>
@@ -154,9 +148,7 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
               <div className="flex items-center gap-2 font-medium text-stone-800">
                 <Store size={14} className="text-emerald-500"/>
                 <span>Nhận tại quán</span>
-                <span className="text-stone-500 font-normal">Dự kiến có lúc 19:30</span>
               </div>
-              <span className="text-stone-400">Thay đổi <ChevronRight size={12} className="inline -ml-0.5"/></span>
             </div>
             <div className="flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-2 font-medium text-stone-800">
@@ -166,14 +158,6 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
               <span className="text-stone-400">Xem thêm <ChevronRight size={12} className="inline -ml-0.5"/></span>
             </div>
             
-            <div className="flex gap-2 overflow-x-auto no-scrollbar pt-1">
-              <div className="border border-emerald-200 bg-emerald-50 text-emerald-700 text-[10px] font-medium px-2 py-1 rounded shrink-0 flex items-center gap-1">
-                Giảm 50% <span className="text-emerald-200">|</span> Đơn từ 55k <ChevronRight size={10} className="ml-0.5 opacity-50"/>
-              </div>
-              <div className="border border-emerald-200 bg-emerald-50 text-emerald-700 text-[10px] font-medium px-2 py-1 rounded shrink-0 flex items-center gap-1">
-                Giảm 50% <span className="text-emerald-200">|</span> Đơn từ 60k <ChevronRight size={10} className="ml-0.5 opacity-50"/>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -190,12 +174,12 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
                   </div>
                   <div className="absolute bottom-1 right-1">
                       {getProductQuantity(p.id) > 0 ? (
-                        <div className="w-5 h-5 bg-white border border-[#f24e1e] text-[#f24e1e] rounded-sm flex items-center justify-center font-bold text-[10px]">
+                        <div className="w-6 h-6 bg-white border border-[#C57A44] text-[#C57A44] rounded-full flex items-center justify-center font-bold text-[10px] shadow-xs">
                           {getProductQuantity(p.id)}
                         </div>
                       ) : (
-                        <div className="w-5 h-5 bg-[#f24e1e] text-white rounded-sm flex items-center justify-center">
-                          <Plus size={14} strokeWidth={3} />
+                        <div className="w-6 h-6 bg-[#C57A44] text-white rounded-full flex items-center justify-center shadow-xs">
+                          <Plus size={14} className="stroke-[3]" />
                         </div>
                       )}
                   </div>
@@ -213,23 +197,8 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
 
         {/* List */}
         <div className="bg-white pb-24 grow min-h-screen">
-          <div className="flex items-center gap-6 px-4 border-b border-stone-200 overflow-x-auto no-scrollbar sticky top-14 bg-white z-20 shrink-0">
-            {['Món chính', 'MÓN ĂN VẶT', 'MÓN ĂN KÈM', 'ĐỒ UỐNG', 'THÊM'].map(tab => (
-               <button 
-                 key={tab}
-                 onClick={() => setActiveTab(tab)}
-                 className={`whitespace-nowrap py-3 text-xs font-medium transition-colors relative ${activeTab === tab ? 'text-rose-600' : 'text-stone-600'}`}
-               >
-                 {tab}
-                 {activeTab === tab && (
-                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-rose-600" />
-                 )}
-               </button>
-            ))}
-          </div>
-
           <div className="p-4">
-            <h3 className="text-sm font-bold text-stone-800 mb-4">{activeTab} ({restaurantProducts.length})</h3>
+            <h3 className="text-sm font-bold text-stone-800 mb-4">Tất cả món ({restaurantProducts.length})</h3>
             <div className="space-y-5">
               {restaurantProducts.map(p => (
                 <div key={p.id} className="flex gap-3 cursor-pointer group" onClick={() => onSelectProduct(p)}>
@@ -248,19 +217,19 @@ export function RestaurantDetailView({ restaurant, onBack, onSelectProduct, cart
                        
                        {getProductQuantity(p.id) > 0 ? (
                          <div className="flex items-center gap-3">
-                           <button onClick={(e) => { e.stopPropagation(); handleDecreaseProduct(p.id); }} className="w-7 h-7 flex items-center justify-center border border-[#f24e1e] text-[#f24e1e] rounded-sm bg-white active:bg-rose-50 transition-colors">
-                              <Minus size={16} />
+                           <button onClick={(e) => { e.stopPropagation(); handleDecreaseProduct(p.id); }} className="w-7 h-7 flex items-center justify-center border border-[#C57A44] text-[#C57A44] rounded-full bg-white active:bg-amber-50 transition-colors shadow-xs">
+                              <Minus size={16} className="stroke-[3]" />
                            </button>
                            <span className="text-[15px] font-medium w-4 text-center text-stone-800">
                              {getProductQuantity(p.id)}
                            </span>
-                           <button onClick={(e) => { e.stopPropagation(); handleIncreaseProduct(p.id, p); }} className="w-7 h-7 flex items-center justify-center bg-[#f24e1e] text-white rounded-sm active:bg-[#e04316] transition-colors">
-                              <Plus size={16} />
+                           <button onClick={(e) => { e.stopPropagation(); handleIncreaseProduct(p.id, p); }} className="w-7 h-7 flex items-center justify-center bg-[#C57A44] text-white rounded-full active:bg-amber-800 transition-colors shadow-xs">
+                              <Plus size={16} className="stroke-[3]" />
                            </button>
                          </div>
                        ) : (
-                         <button className="w-7 h-7 bg-[#f24e1e] text-white rounded-sm flex items-center justify-center transition-transform hover:scale-110 active:scale-95" onClick={(e) => { e.stopPropagation(); onSelectProduct(p); }}>
-                            <Plus size={16} strokeWidth={3} />
+                         <button className="w-7 h-7 bg-[#C57A44] text-white rounded-full flex items-center justify-center transition-transform hover:scale-110 active:scale-95 shadow-xs" onClick={(e) => { e.stopPropagation(); onSelectProduct(p); }}>
+                            <Plus size={16} className="stroke-[3]" />
                          </button>
                        )}
                     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Star } from 'lucide-react';
 import { Product } from '../../types';
-import { RatingBadge } from '@/src/components/atoms/RatingBadge';
+import { RatingBadge } from '../atoms/RatingBadge';
 import { Badge } from '../atoms/Badge';
 
 interface ProductCardProps {
