@@ -68,7 +68,11 @@ public class SecurityConfig {
                 ).permitAll()
 
                 // ── Auth endpoints (public) ───────────────────────────────
-                .requestMatchers("/savibite/auth/**").permitAll()
+                .requestMatchers(
+                        "/savibite/auth/login",
+                        "/savibite/auth/register/**",
+                        "/savibite/auth/refresh"
+                ).permitAll()
 
                 // ── Public read endpoints ─────────────────────────────────
                 .requestMatchers(HttpMethod.GET, "/savibite/shops/**").permitAll()

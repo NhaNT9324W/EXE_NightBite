@@ -76,7 +76,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        return path.startsWith("/savibite/auth/")
+        return path.equals("/savibite/auth/login")
+                || path.startsWith("/savibite/auth/register")
+                || path.equals("/savibite/auth/refresh")
                 || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
                 || path.equals("/actuator/health");
